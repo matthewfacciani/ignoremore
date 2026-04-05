@@ -1,0 +1,864 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>IgnoreMore — Ignore Smarter</title>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #f7f4ef;
+      --paper: #fffdf9;
+      --ink: #1c1917;
+      --ink-mid: #57534e;
+      --ink-light: #a8a29e;
+      --rule: #e7e2db;
+      --accent: #c2410c;
+      --accent-light: #fff1ec;
+    }
+
+    body {
+      font-family: 'DM Sans', system-ui, sans-serif;
+      background: var(--bg);
+      color: var(--ink);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    body::before {
+      content: '';
+      position: fixed;
+      inset: 0;
+      background-image: radial-gradient(circle, rgba(28,25,23,0.07) 1px, transparent 1px);
+      background-size: 28px 28px;
+      pointer-events: none;
+      z-index: 0;
+    }
+
+    .wrap {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 72px 28px 60px;
+      position: relative;
+      z-index: 1;
+      flex: 1;
+      display: flex;
+      flex-direction: column;
+    }
+
+    /* Top bar */
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-bottom: 80px;
+      animation: rise 0.5s ease both;
+    }
+
+    .logo {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 22px;
+      color: var(--ink);
+      letter-spacing: -0.02em;
+    }
+
+    .logo em { font-style: italic; }
+    .logo span { color: var(--accent); }
+
+    .coming-badge {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--accent);
+      background: var(--accent-light);
+      border: 1px solid rgba(194,65,12,0.18);
+      padding: 5px 12px;
+      border-radius: 100px;
+    }
+
+    /* Hero */
+    .hero {
+      margin-bottom: 72px;
+      animation: rise 0.5s 0.08s ease both;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 24px;
+    }
+
+    .eyebrow::before {
+      content: '';
+      display: block;
+      width: 20px;
+      height: 1.5px;
+      background: var(--ink-light);
+      flex-shrink: 0;
+    }
+
+    h1 {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(48px, 8.5vw, 76px);
+      line-height: 1.02;
+      letter-spacing: -0.025em;
+      color: var(--ink);
+      margin-bottom: 28px;
+    }
+
+    h1 em { font-style: italic; color: var(--accent); }
+
+    .hero-divider {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 24px;
+    }
+
+    .hero-divider-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--accent);
+      flex-shrink: 0;
+    }
+
+    .hero-divider-line { height: 1px; background: var(--rule); flex: 1; }
+
+    .hero-desc {
+      font-size: 18px;
+      line-height: 1.72;
+      font-weight: 300;
+      color: var(--ink-mid);
+      max-width: 520px;
+    }
+
+    /* Pain section */
+    .pain-section {
+      margin-bottom: 64px;
+      animation: rise 0.5s 0.14s ease both;
+    }
+
+    .section-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 20px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .section-label::after {
+      content: '';
+      display: block;
+      height: 1px;
+      background: var(--rule);
+      flex: 1;
+    }
+
+    .pain-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
+      gap: 10px;
+    }
+
+    .pain-card {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 8px;
+      padding: 20px 22px;
+    }
+
+    .pain-icon {
+      font-size: 20px;
+      margin-bottom: 10px;
+      display: block;
+    }
+
+    .pain-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 17px;
+      color: var(--ink);
+      margin-bottom: 6px;
+      line-height: 1.2;
+    }
+
+    .pain-desc {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.6;
+    }
+
+    /* Science section */
+    .science-section {
+      background: var(--ink);
+      border-radius: 10px;
+      padding: 36px 40px;
+      margin-bottom: 64px;
+      animation: rise 0.5s 0.20s ease both;
+    }
+
+    .science-label {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 16px;
+    }
+
+    .science-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(24px, 4vw, 34px);
+      color: var(--bg);
+      line-height: 1.15;
+      letter-spacing: -0.015em;
+      margin-bottom: 16px;
+    }
+
+    .science-title em { font-style: italic; color: rgba(255,255,255,0.6); }
+
+    .science-rule {
+      height: 1px;
+      background: rgba(255,255,255,0.12);
+      margin-bottom: 20px;
+    }
+
+    .science-desc {
+      font-size: 15px;
+      font-weight: 300;
+      color: rgba(255,255,255,0.7);
+      line-height: 1.75;
+      max-width: 520px;
+      margin-bottom: 24px;
+    }
+
+    .science-desc a {
+      color: rgba(255,255,255,0.9);
+      border-bottom: 1px solid rgba(255,255,255,0.25);
+      text-decoration: none;
+    }
+
+    .science-pills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .science-pill {
+      font-size: 11px;
+      font-weight: 400;
+      color: rgba(255,255,255,0.6);
+      background: rgba(255,255,255,0.08);
+      border: 1px solid rgba(255,255,255,0.12);
+      padding: 5px 13px;
+      border-radius: 100px;
+    }
+
+    /* Companion preview */
+    .companion-section {
+      margin-bottom: 64px;
+      animation: rise 0.5s 0.26s ease both;
+    }
+
+    .companion-card {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+
+    .browser-bar {
+      background: var(--bg);
+      border-bottom: 1px solid var(--rule);
+      padding: 10px 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot { width: 9px; height: 9px; border-radius: 50%; }
+    .dot-r { background: #fca5a5; }
+    .dot-y { background: #fde68a; }
+    .dot-g { background: #bbf7d0; }
+
+    .browser-url {
+      margin-left: 10px;
+      font-size: 11px;
+      color: var(--ink-light);
+      background: var(--rule);
+      padding: 3px 12px;
+      border-radius: 100px;
+      flex: 1;
+      max-width: 240px;
+    }
+
+    .companion-inner { padding: 36px 40px 40px; }
+
+    .companion-eyebrow {
+      font-size: 10px;
+      font-weight: 500;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .companion-eyebrow span { color: var(--rule); }
+
+    .companion-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(26px, 4vw, 38px);
+      line-height: 1.05;
+      letter-spacing: -0.02em;
+      color: var(--ink);
+    }
+
+    .companion-title em { font-style: italic; color: var(--accent); }
+
+    .companion-rule { height: 1.5px; background: var(--ink); width: 100%; margin: 16px 0 18px; }
+
+    .companion-desc {
+      font-size: 15px;
+      line-height: 1.7;
+      font-weight: 300;
+      color: var(--ink-mid);
+      margin-bottom: 28px;
+      max-width: 540px;
+    }
+
+    .companion-desc a {
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1px solid rgba(194,65,12,0.3);
+    }
+
+    .field { margin-bottom: 20px; }
+
+    .field-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    .field-label .opt { font-weight: 300; letter-spacing: 0; text-transform: none; font-size: 11px; opacity: 0.75; }
+
+    .mock-textarea {
+      width: 100%;
+      padding: 14px 16px;
+      border: 1.5px solid var(--rule);
+      border-radius: 8px;
+      background: var(--bg);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--ink-light);
+      font-style: italic;
+      line-height: 1.65;
+      resize: none;
+      min-height: 110px;
+      outline: none;
+      pointer-events: none;
+    }
+
+    .mock-select-wrap { position: relative; display: inline-block; width: 260px; }
+
+    .mock-select {
+      appearance: none;
+      -webkit-appearance: none;
+      width: 100%;
+      padding: 11px 40px 11px 14px;
+      border: 1.5px solid var(--rule);
+      border-radius: 8px;
+      background: var(--bg);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 14px;
+      color: var(--ink);
+      outline: none;
+      pointer-events: none;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a8a29e' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
+      background-repeat: no-repeat;
+      background-position: right 14px center;
+    }
+
+    .analyze-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--ink);
+      color: var(--bg);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 15px;
+      font-weight: 500;
+      padding: 13px 26px;
+      border-radius: 8px;
+      cursor: default;
+      margin-top: 6px;
+      pointer-events: none;
+    }
+
+    .output-section { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--rule); position: relative; }
+    .output-label { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 14px; }
+    .output-blur { filter: blur(5px); user-select: none; pointer-events: none; }
+
+    .verdict-chip {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--accent-light);
+      border: 1px solid rgba(194,65,12,0.2);
+      color: var(--accent);
+      font-size: 12.5px;
+      font-weight: 500;
+      padding: 5px 13px;
+      border-radius: 100px;
+      margin-bottom: 14px;
+    }
+
+    .verdict-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
+    .out-line { height: 11px; background: var(--rule); border-radius: 3px; margin-bottom: 9px; }
+
+    .output-fade {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: flex-end;
+      justify-content: center;
+      background: linear-gradient(to bottom, rgba(255,253,249,0) 0%, rgba(255,253,249,0.92) 65%);
+      padding-bottom: 20px;
+    }
+
+    .output-pill {
+      background: var(--ink);
+      color: var(--bg);
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 14px;
+      font-style: italic;
+      padding: 9px 22px;
+      border-radius: 100px;
+    }
+
+    .companion-footer {
+      margin-top: 24px;
+      padding-top: 18px;
+      border-top: 1px solid var(--rule);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+
+    .cf-brand { font-family: 'Instrument Serif', Georgia, serif; font-size: 14px; font-style: italic; color: var(--ink); }
+    .cf-brand span { color: var(--accent); font-style: normal; }
+    .cf-meta { font-size: 11px; color: var(--ink-light); font-weight: 300; }
+
+    /* Tabs */
+    .tab-bar {
+      display: flex;
+      align-items: center;
+      gap: 0;
+      border-bottom: 1.5px solid var(--rule);
+      margin-bottom: 24px;
+    }
+
+    .tab {
+      font-size: 14px;
+      font-weight: 400;
+      color: var(--ink-light);
+      padding: 10px 18px 10px 0;
+      margin-right: 24px;
+      cursor: default;
+      border-bottom: 2px solid transparent;
+      margin-bottom: -1.5px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      white-space: nowrap;
+    }
+
+    .tab.active {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      font-weight: 500;
+    }
+
+    .tab.muted { opacity: 0.6; }
+
+    .soon-badge {
+      font-size: 10px;
+      font-weight: 500;
+      color: var(--ink-light);
+      background: var(--rule);
+      padding: 2px 8px;
+      border-radius: 100px;
+    }
+
+    /* Waitlist */
+    .waitlist-section {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 32px 36px;
+      animation: rise 0.5s 0.32s ease both;
+      margin-bottom: 48px;
+    }
+
+    .waitlist-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 24px;
+      margin-bottom: 8px;
+      color: var(--ink);
+    }
+
+    .waitlist-desc {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      margin-bottom: 22px;
+      line-height: 1.65;
+      max-width: 480px;
+    }
+
+    .waitlist-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+    }
+
+    .waitlist-input {
+      flex: 1;
+      min-width: 200px;
+      padding: 12px 16px;
+      border: 1.5px solid var(--rule);
+      border-radius: 6px;
+      background: var(--bg);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--ink);
+      outline: none;
+      transition: border-color 0.2s;
+    }
+
+    .waitlist-input:focus { border-color: var(--ink-mid); }
+    .waitlist-input::placeholder { color: var(--ink-light); }
+
+    .waitlist-btn {
+      background: var(--accent);
+      color: #fff;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 14px;
+      font-weight: 500;
+      padding: 12px 26px;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: background 0.18s, transform 0.14s;
+      white-space: nowrap;
+    }
+
+    .waitlist-btn:hover { background: #a83209; transform: translateY(-1px); }
+    .waitlist-note { font-size: 11.5px; color: var(--ink-light); margin-top: 12px; font-weight: 300; }
+
+    /* Survey */
+    .survey-section {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 28px 32px;
+      margin-bottom: 16px;
+      animation: rise 0.5s 0.36s ease both;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 24px;
+    }
+
+    .survey-left { display: flex; flex-direction: column; gap: 10px; max-width: 480px; }
+    .survey-label { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-light); }
+    .survey-title { font-family: 'Instrument Serif', Georgia, serif; font-size: 21px; color: var(--ink); }
+    .survey-desc { font-size: 14px; font-weight: 300; color: var(--ink-mid); line-height: 1.65; }
+
+    .survey-questions {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+      padding-left: 12px;
+      border-left: 2px solid var(--rule);
+      margin-top: 4px;
+    }
+
+    .sq { font-size: 12.5px; font-weight: 300; color: var(--ink-light); line-height: 1.5; font-style: italic; }
+
+    .survey-btn {
+      display: inline-block;
+      background: var(--bg);
+      color: var(--ink);
+      border: 1.5px solid var(--ink);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 11px 22px;
+      border-radius: 6px;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background 0.18s, transform 0.14s;
+      flex-shrink: 0;
+      align-self: flex-start;
+    }
+
+    .survey-btn:hover { background: var(--rule); transform: translateY(-1px); }
+
+    /* Misguided strip */
+    .misguided-strip {
+      background: var(--paper);
+      border: 1px solid var(--rule);
+      border-radius: 10px;
+      padding: 20px 28px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-bottom: 48px;
+      animation: rise 0.5s 0.38s ease both;
+    }
+
+    .strip-left { display: flex; flex-direction: column; gap: 4px; }
+    .strip-label { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-light); }
+    .strip-text { font-size: 14px; font-weight: 300; color: var(--ink-mid); line-height: 1.5; }
+    .strip-text em { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; color: var(--ink); }
+
+    .strip-link {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--ink);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule);
+      white-space: nowrap;
+      transition: border-color 0.2s;
+    }
+
+    .strip-link:hover { border-color: var(--ink); }
+
+    /* Footer */
+    .site-footer {
+      max-width: 760px;
+      margin: 0 auto;
+      padding: 20px 28px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 12px;
+      border-top: 1px solid var(--rule);
+      position: relative;
+      z-index: 1;
+    }
+
+    .footer-credit { font-size: 12px; color: var(--ink-light); line-height: 1.7; }
+    .footer-credit a { color: var(--ink-mid); text-decoration: none; border-bottom: 1px solid var(--rule); }
+    .footer-credit a:hover { color: var(--ink); }
+    .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
+    .footer-link { font-size: 12px; font-weight: 500; color: var(--ink-mid); text-decoration: none; border-bottom: 1px solid var(--rule); }
+    .footer-link:hover { color: var(--ink); border-color: var(--ink); }
+
+    @keyframes rise {
+      from { opacity: 0; transform: translateY(14px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    @media (max-width: 600px) {
+      .wrap { padding: 48px 20px 40px; }
+      .topbar { margin-bottom: 52px; }
+      h1 { font-size: clamp(40px, 11vw, 60px); }
+      .companion-inner { padding: 24px 20px 28px; }
+      .science-section { padding: 28px 24px; }
+      .waitlist-row { flex-direction: column; }
+      .waitlist-btn { width: 100%; text-align: center; }
+      .mock-select-wrap { width: 100%; }
+      .misguided-strip { flex-direction: column; align-items: flex-start; }
+    }
+  </style>
+</head>
+<body>
+
+<div class="wrap">
+
+  <!-- Top bar -->
+  <div class="topbar">
+    <div class="logo"><em>Ignore</em><span>More</span>.com</div>
+    <div class="coming-badge">Coming Soon</div>
+  </div>
+
+  <!-- Hero -->
+  <div class="hero">
+    <div class="eyebrow">A suite of critical ignoring tools</div>
+    <h1>Ignore<br/><em>smarter.</em></h1>
+    <div class="hero-divider">
+      <div class="hero-divider-dot"></div>
+      <div class="hero-divider-line"></div>
+    </div>
+    <p class="hero-desc">
+      The attention economy is overwhelming and online discourse can be exhausting. These free tools help you decide what deserves your attention and what doesn't.
+    </p>
+  </div>
+
+  <!-- Pain section -->
+  <div class="pain-section">
+    <div class="section-label">The problem</div>
+    <div class="pain-grid">
+      <div class="pain-card">
+        <span class="pain-icon">🧠</span>
+        <div class="pain-title">Attention is finite</div>
+        <div class="pain-desc">Every comment you engage with costs you something. Most aren't worth the price.</div>
+      </div>
+      <div class="pain-card">
+        <span class="pain-icon">🔁</span>
+        <div class="pain-title">Ignoring is a skill</div>
+        <div class="pain-desc">Not every comment deserves a response. Knowing when to disengage is one of the most underrated things you can learn online.</div>
+      </div>
+      <div class="pain-card">
+        <span class="pain-icon">📉</span>
+        <div class="pain-title">Engagement has a cost</div>
+        <div class="pain-desc">Replying to the wrong comments amplifies noise. Sometimes the smartest move is silence.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Companion preview -->
+  <div class="companion-section">
+    <div class="section-label">Sneak peek — Critical Ignoring Companion</div>
+    <div class="companion-card">
+      <div class="browser-bar">
+        <div class="dot dot-r"></div>
+        <div class="dot dot-y"></div>
+        <div class="dot dot-g"></div>
+        <div class="browser-url">ignoremore.com/companion</div>
+      </div>
+      <div class="companion-inner">
+        <div class="companion-eyebrow">
+          Interactive Tool <span>·</span> IgnoreMore.com
+        </div>
+        <div class="companion-title">The <em>Critical Ignoring</em> Companion</div>
+        <div class="companion-rule"></div>
+        <p class="companion-desc">A suite of tools to help you decide what deserves your attention online — and what doesn't.</p>
+
+        <!-- Tabs -->
+        <div class="tab-bar">
+          <div class="tab active">Comment Analyzer</div>
+          <div class="tab muted">Credibility Check <span class="soon-badge">Soon</span></div>
+          <div class="tab muted">Screen Time <span class="soon-badge">Soon</span></div>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Paste the comment</label>
+          <textarea class="mock-textarea" readonly placeholder='e.g. "You clearly have no idea what you&apos;re talking about." or "Why do you even have a platform?" or "I disagree — can you explain your reasoning here?"'></textarea>
+        </div>
+
+        <div class="field">
+          <label class="field-label">Who is this person? <span class="opt">(optional)</span></label>
+          <div class="mock-select-wrap">
+            <select class="mock-select" disabled>
+              <option>Small or anonymous account</option>
+              <option>Verified public figure</option>
+              <option>Someone I know personally</option>
+              <option>Journalist or media</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="analyze-btn">
+          <span>⚡</span>
+          Analyze This Comment
+        </div>
+
+        <div class="output-section">
+          <div class="output-label">Analysis</div>
+          <div class="output-blur">
+            <div class="verdict-chip">
+              <div class="verdict-dot"></div>
+              Verdict: Ignore
+            </div>
+            <div class="out-line" style="width:92%"></div>
+            <div class="out-line" style="width:78%"></div>
+            <div class="out-line" style="width:85%"></div>
+            <div class="out-line" style="width:60%"></div>
+            <div class="out-line" style="width:88%; margin-top:14px;"></div>
+            <div class="out-line" style="width:72%"></div>
+          </div>
+          <div class="output-fade">
+            <div class="output-pill">Launching soon</div>
+          </div>
+        </div>
+
+        <div class="companion-footer">
+          <div class="cf-brand"><em>Ignore</em><span>More</span>.com</div>
+          <div class="cf-meta">Free tool · No signup required · Based on peer-reviewed research</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Survey -->
+  <div class="survey-section">
+    <div class="survey-left">
+      <div class="survey-label">Get involved</div>
+      <div class="survey-title">Take the 2-minute survey</div>
+      <div class="survey-desc">Leave your email to get updates, sign up as a beta tester, and share feedback. Two minutes, no pressure — answer as much or as little as you like.</div>
+      <div class="survey-questions">
+        <div class="sq">What's your biggest challenge when you get a difficult comment online?</div>
+        <div class="sq">Which tools would actually be useful to you right now?</div>
+        <div class="sq">What does protecting your attention mean to you personally?</div>
+      </div>
+    </div>
+    <a class="survey-btn" href="https://docs.google.com/forms/d/e/1FAIpQLScYckwEN7h07k94Q1W2jxPmfB3cqTexJjYfKyTK0AnS24ROYg/viewform" target="_blank">Take the survey →</a>
+  </div>
+
+  <!-- Misguided strip -->
+  <div class="misguided-strip">
+    <div class="strip-left">
+      <div class="strip-label">Part of the Misguided universe</div>
+      <div class="strip-text">More tools for understanding bias and misinformation at <em>matthewfacciani.com/tools</em></div>
+    </div>
+    <a class="strip-link" href="https://matthewfacciani.github.io/tools/" target="_blank">Explore all tools →</a>
+  </div>
+
+</div>
+
+<div class="site-footer">
+  <div class="footer-credit">
+    Created by <a href="https://www.matthewfacciani.com" target="_blank">Matthew Facciani, PhD</a><br>
+    Grounded in <a href="https://matthewfacciani.substack.com/p/the-overlooked-skill-we-all-need" target="_blank">critical ignoring</a> research
+  </div>
+  <div class="footer-links">
+    <a class="footer-link" href="https://matthewfacciani.substack.com" target="_blank">📬 Misguided Newsletter</a>
+    <a class="footer-link" href="https://cup.columbia.edu/book/misguided/9780231205054" target="_blank">📖 Misguided (the book)</a>
+  </div>
+</div>
+
+</body>
+</html>
