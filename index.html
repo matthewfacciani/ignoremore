@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>IgnoreMore — Ignore Smarter</title>
+  <title>IgnoreMore — Less Noise. More Time.</title>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -803,15 +803,49 @@
     }
 
     @media (max-width: 600px) {
-      .wrap { padding: 48px 20px 40px; }
-      .topbar { margin-bottom: 52px; }
-      h1 { font-size: clamp(40px, 11vw, 60px); }
-      .companion-inner { padding: 24px 20px 28px; }
-      .science-section { padding: 28px 24px; }
-      .waitlist-row { flex-direction: column; }
-      .waitlist-btn { width: 100%; text-align: center; }
+      .wrap { padding: 40px 18px 40px; }
+      .topbar { margin-bottom: 44px; }
+      .logo { font-size: 18px; }
+      .coming-badge { font-size: 9px; padding: 4px 10px; }
+
+      h1 { font-size: clamp(38px, 11vw, 56px); }
+
+      .hero { margin-bottom: 44px; }
+      .hero-desc { font-size: 15px; }
+
+      .pain-grid { grid-template-columns: 1fr; }
+      .pain-card { padding: 16px 18px; }
+
+      .sample-card { max-width: 100%; padding: 22px 20px; }
+      .sample-stat { font-size: 44px; }
+      .sample-breakdown { gap: 14px; }
+
+      .companion-inner { padding: 20px 18px 24px; }
+      .companion-title { font-size: clamp(22px, 6vw, 32px); }
+      .tab-bar { overflow-x: auto; -webkit-overflow-scrolling: touch; gap: 0; padding-bottom: 1px; }
+      .tab { white-space: nowrap; font-size: 12px; padding: 8px 0; margin-right: 18px; }
       .mock-select-wrap { width: 100%; }
-      .misguided-strip { flex-direction: column; align-items: flex-start; }
+      .analyze-btn { width: 100%; justify-content: center; }
+
+      .survey-section { flex-direction: column; padding: 22px 18px; }
+      .survey-btn { width: 100%; text-align: center; }
+      .survey-left { max-width: 100%; }
+
+      .misguided-strip { flex-direction: column; align-items: flex-start; padding: 18px 20px; }
+
+      .site-footer { flex-direction: column; align-items: flex-start; padding: 20px 18px 36px; }
+      .footer-links { gap: 12px; }
+
+      .section-label { font-size: 9px; }
+
+      .browser-url { max-width: 160px; font-size: 10px; }
+    }
+
+    @media (max-width: 400px) {
+      .wrap { padding: 32px 14px 32px; }
+      h1 { font-size: 36px; }
+      .sample-breakdown { flex-wrap: wrap; gap: 12px; }
+      .tab { font-size: 11px; margin-right: 14px; }
     }
   </style>
 </head>
@@ -894,7 +928,7 @@
         <div class="sample-note">example summary</div>
       </div>
     </div>
-    <p style="font-size:11.5px;font-weight:300;color:var(--ink-light);margin-top:10px;max-width:340px;line-height:1.6;">Hours estimates are based on published research on rumination and online attention. <a href="[YOUR_BLOG_POST_URL]" target="_blank" style="color:var(--ink-light);border-bottom:1px solid var(--rule);text-decoration:none;">Read the research →</a></p>
+    <p style="font-size:11.5px;font-weight:300;color:var(--ink-light);margin-top:10px;max-width:340px;line-height:1.6;">Hours estimates are based on published research on rumination and online attention. <a href="https://matthewfacciani.substack.com/p/i-study-how-we-get-misled-online" target="_blank" style="color:var(--ink-light);border-bottom:1px solid var(--rule);text-decoration:none;">Read the research →</a></p>
   </div>
   <div class="companion-section">
     <div class="section-label">Sneak peek — Critical Ignoring Companion</div>
