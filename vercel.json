@@ -1,0 +1,5 @@
+{
+  "redirects": [
+    { "source": "/companion", "destination": "https://critignore.com", "permanent": false }
+  ]
+}
