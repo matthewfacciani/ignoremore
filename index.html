@@ -9,8 +9,8 @@
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f7f4ef;
-      --paper: #fffdf9;
+      --bg: #f5f0e8;
+      --paper: #fdfaf5;
       --ink: #1c1917;
       --ink-mid: #57534e;
       --ink-light: #a8a29e;
@@ -865,7 +865,7 @@
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
-      <div class="coming-badge">Coming Soon</div>
+      <div class="coming-badge" style="background:#dcfce7;color:#15803d;border:1px solid #bbf7d0;">● Now Live</div>
     </div>
   </div>
 
@@ -913,15 +913,15 @@
   <div class="sample-section">
     <div class="section-label">What you'll get</div>
     <div class="sample-card">
-      <div class="sample-eyebrow">Your week on IgnoreMore</div>
+      <div class="sample-eyebrow">Your session on IgnoreMore</div>
       <div class="sample-stat">3.2</div>
-      <div class="sample-stat-label">hours of attention protected this week</div>
-      <div class="sample-est">based on comments analyzed, screen time logged, and rabbit holes avoided</div>
+      <div class="sample-stat-label">hours of attention protected this session</div>
+      <div class="sample-est">based on comments analyzed and rabbit holes avoided</div>
       <div class="sample-rule"></div>
       <div class="sample-breakdown">
         <div class="sample-mini"><div class="sample-mini-val">12</div><div class="sample-mini-label">trolls ignored</div></div>
-        <div class="sample-mini"><div class="sample-mini-val">1h 45m</div><div class="sample-mini-label">screen time saved</div></div>
         <div class="sample-mini"><div class="sample-mini-val">3</div><div class="sample-mini-label">rabbit holes avoided</div></div>
+        <div class="sample-mini"><div class="sample-mini-val">15</div><div class="sample-mini-label">total analyzed</div></div>
       </div>
       <div class="sample-footer">
         <div class="sample-brand"><em>Ignore</em><span>More</span>.com</div>
@@ -931,7 +931,7 @@
     <p style="font-size:11.5px;font-weight:300;color:var(--ink-light);margin-top:10px;max-width:340px;line-height:1.6;">Hours estimates are based on published research on rumination and online attention. <a href="https://matthewfacciani.substack.com/p/i-study-how-we-get-misled-online" target="_blank" style="color:var(--ink-light);border-bottom:1px solid var(--rule);text-decoration:none;">Read the research →</a></p>
   </div>
   <div class="companion-section">
-    <div class="section-label">Sneak peek — Critical Ignoring Companion</div>
+    <div class="section-label">Now Live — Critical Ignoring Companion</div>
     <div class="companion-card">
       <div class="browser-bar">
         <div class="dot dot-r"></div>
@@ -945,59 +945,28 @@
         </div>
         <div class="companion-title">The <em>Critical Ignoring</em> Companion</div>
         <div class="companion-rule"></div>
-        <p class="companion-desc">A suite of tools to help you decide what deserves your attention online — and what doesn't.</p>
+        <p class="companion-desc">A suite of tools to help you decide what deserves your attention online, and what doesn't. Both tools are grounded in the same skill: knowing what to ignore.</p>
 
-        <!-- Tabs -->
-        <div class="tab-bar">
-          <div class="tab active">Comment Analyzer</div>
-          <div class="tab muted">Credibility Check <span class="soon-badge">Soon</span></div>
-          <div class="tab muted">Screen Time <span class="soon-badge">Soon</span></div>
-        </div>
-
-        <div class="field">
-          <label class="field-label">Paste the comment</label>
-          <textarea class="mock-textarea" readonly placeholder='e.g. "You clearly have no idea what you&apos;re talking about." or "Why do you even have a platform?" or "I disagree — can you explain your reasoning here?"'></textarea>
-        </div>
-
-        <div class="field">
-          <label class="field-label">Who is this person? <span class="opt">(optional)</span></label>
-          <div class="mock-select-wrap">
-            <select class="mock-select" disabled>
-              <option>Small or anonymous account</option>
-              <option>Verified public figure</option>
-              <option>Someone I know personally</option>
-              <option>Journalist or media</option>
-            </select>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;">
+          <div style="padding:16px;background:var(--bg);border:1px solid var(--rule);border-radius:8px;">
+            <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">Tab 1</div>
+            <div style="font-family:'Instrument Serif',Georgia,serif;font-size:18px;color:var(--ink);margin-bottom:6px;">Comment Analyzer</div>
+            <div style="font-size:13px;font-weight:300;color:var(--ink-mid);line-height:1.6;">Decide whether an online comment deserves a reply or is just an attention trap.</div>
+          </div>
+          <div style="padding:16px;background:var(--bg);border:1px solid var(--rule);border-radius:8px;">
+            <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">Tab 2</div>
+            <div style="font-family:'Instrument Serif',Georgia,serif;font-size:18px;color:var(--ink);margin-bottom:6px;">Credibility Check</div>
+            <div style="font-size:13px;font-weight:300;color:var(--ink-mid);line-height:1.6;">Avoid rabbit holes by checking whether a source or claim is worth your time before engaging.</div>
           </div>
         </div>
 
-        <div class="analyze-btn">
-          <span>⚡</span>
-          Analyze This Comment
-        </div>
-
-        <div class="output-section">
-          <div class="output-label">Analysis</div>
-          <div class="output-blur">
-            <div class="verdict-chip">
-              <div class="verdict-dot"></div>
-              Verdict: Ignore
-            </div>
-            <div class="out-line" style="width:92%"></div>
-            <div class="out-line" style="width:78%"></div>
-            <div class="out-line" style="width:85%"></div>
-            <div class="out-line" style="width:60%"></div>
-            <div class="out-line" style="width:88%; margin-top:14px;"></div>
-            <div class="out-line" style="width:72%"></div>
-          </div>
-          <div class="output-fade">
-            <div class="output-pill">Launching soon</div>
-          </div>
-        </div>
+        <a href="https://critignore.com" target="_blank" style="display:block;background:var(--ink);color:var(--bg);text-align:center;font-family:'DM Sans',system-ui,sans-serif;font-size:14px;font-weight:500;padding:14px 24px;border-radius:8px;text-decoration:none;margin-top:20px;transition:background 0.2s;">
+          Try the Companion →
+        </a>
 
         <div class="companion-footer">
           <div class="cf-brand"><em>Ignore</em><span>More</span>.com</div>
-          <div class="cf-meta">Free tool · No signup required · Based on peer-reviewed research</div>
+          <div class="cf-meta">Free tool · No signup required · Grounded in published research</div>
         </div>
       </div>
     </div>
@@ -1006,16 +975,16 @@
   <!-- Survey -->
   <div class="survey-section">
     <div class="survey-left">
-      <div class="survey-label">Get involved</div>
-      <div class="survey-title">Take the 2-minute survey</div>
-      <div class="survey-desc">Leave your email to get updates, sign up as a beta tester, and share feedback. Two minutes, no pressure — answer as much or as little as you like.</div>
+      <div class="survey-label">Stay in the loop</div>
+      <div class="survey-title">New tools, research, and ideas in your inbox</div>
+      <div class="survey-desc">Subscribe to the Misguided newsletter for updates on new tools, research-backed insights on misinformation, and ideas for protecting your attention online. Free, no spam.</div>
       <div class="survey-questions">
-        <div class="sq">What's your biggest challenge when you get a difficult comment online?</div>
-        <div class="sq">Which tools would actually be useful to you right now?</div>
-        <div class="sq">What does protecting your attention mean to you personally?</div>
+        <div class="sq">📬 Weekly essays on misinformation and digital literacy</div>
+        <div class="sq">🛠 First access to new tools as they launch</div>
+        <div class="sq">🧠 Research-backed strategies you can actually use</div>
       </div>
     </div>
-    <a class="survey-btn" href="https://docs.google.com/forms/d/e/1FAIpQLScYckwEN7h07k94Q1W2jxPmfB3cqTexJjYfKyTK0AnS24ROYg/viewform" target="_blank">Take the survey →</a>
+    <a class="survey-btn" href="https://matthewfacciani.substack.com" target="_blank">Subscribe to Misguided →</a>
   </div>
 
   <!-- Misguided strip -->
