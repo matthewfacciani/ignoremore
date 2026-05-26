@@ -4,63 +4,47 @@
   <meta charset="UTF-8"/>
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>IgnoreMore — Less Noise. More Time.</title>
-  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet"/>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
     :root {
-      --bg: #f5f0e8;
-      --paper: #fdfaf5;
-      --ink: #1c1917;
-      --ink-mid: #57534e;
-      --ink-light: #a8a29e;
-      --rule: #e7e2db;
-      --accent: #c2410c;
+      --bg:           #f5f0e8;
+      --paper:        #fdfaf5;
+      --ink:          #1c1917;
+      --ink-mid:      #57534e;
+      --ink-light:    #a8a29e;
+      --rule:         #e7e2db;
+      --rule-strong:  #c9bfaf;
+      --accent:       #c2410c;
       --accent-light: #fff1ec;
-      --sample-bg: #1c1917;
-      --sample-text: #fff;
+      --sample-bg:    #1c1917;
+      --sample-text:  #fff;
       --sample-muted: rgba(255,255,255,0.35);
-      --sample-sub: rgba(255,255,255,0.6);
-      --sample-rule: rgba(255,255,255,0.1);
-      --dot-opacity: 0.07;
+      --sample-sub:   rgba(255,255,255,0.6);
+      --sample-rule:  rgba(255,255,255,0.1);
+      --dot-opacity:  0.06;
     }
 
     html.dark {
-      --bg: #0f0e0c;
-      --paper: #1a1816;
-      --ink: #f0ece6;
-      --ink-mid: #a8a29e;
-      --ink-light: #57534e;
-      --rule: #2c2825;
-      --accent: #e05a20;
+      --bg:           #0f0e0c;
+      --paper:        #1a1816;
+      --ink:          #f0ece6;
+      --ink-mid:      #a8a29e;
+      --ink-light:    #57534e;
+      --rule:         #2c2825;
+      --rule-strong:  #3d3530;
+      --accent:       #e05a20;
       --accent-light: rgba(194,65,12,0.15);
-      --sample-bg: #2c2825;
-      --sample-text: #f0ece6;
+      --sample-bg:    #2c2825;
+      --sample-text:  #f0ece6;
       --sample-muted: rgba(240,236,230,0.35);
-      --sample-sub: rgba(240,236,230,0.6);
-      --sample-rule: rgba(240,236,230,0.1);
-      --dot-opacity: 0.04;
+      --sample-sub:   rgba(240,236,230,0.6);
+      --sample-rule:  rgba(240,236,230,0.1);
+      --dot-opacity:  0.03;
     }
 
-    /* Theme toggle */
-    .theme-toggle {
-      width: 36px;
-      height: 36px;
-      border-radius: 50%;
-      border: 1px solid var(--rule);
-      background: var(--paper);
-      cursor: pointer;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      transition: background 0.2s, border-color 0.2s;
-      flex-shrink: 0;
-    }
-
-    .theme-toggle:hover { border-color: var(--ink-light); }
-
-    .theme-toggle svg { width: 16px; height: 16px; }
-
+    /* ─── BASE ─── */
     body {
       font-family: 'DM Sans', system-ui, sans-serif;
       background: var(--bg);
@@ -70,6 +54,7 @@
       flex-direction: column;
     }
 
+    /* Dot-grid paper texture */
     body::before {
       content: '';
       position: fixed;
@@ -83,7 +68,7 @@
     .wrap {
       max-width: 760px;
       margin: 0 auto;
-      padding: 72px 28px 60px;
+      padding: 56px 28px 60px;
       position: relative;
       z-index: 1;
       flex: 1;
@@ -91,12 +76,34 @@
       flex-direction: column;
     }
 
-    /* Top bar */
+    /* ─── SECTION DIVIDER (monochrome rule) ─── */
+    .section-divider {
+      height: 2px;
+      background: var(--rule-strong);
+      margin: 52px 0;
+      position: relative;
+    }
+
+    /* Small square accent mark on dividers */
+    .section-divider::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 6px;
+      height: 6px;
+      background: var(--accent);
+    }
+
+    /* ─── TOPBAR ─── */
     .topbar {
       display: flex;
       align-items: center;
       justify-content: space-between;
-      margin-bottom: 80px;
+      margin-bottom: 64px;
+      padding-bottom: 28px;
+      border-bottom: 2px solid var(--ink);
       animation: rise 0.5s ease both;
     }
 
@@ -110,72 +117,123 @@
     .logo em { font-style: italic; }
     .logo span { color: var(--accent); }
 
-    .coming-badge {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      color: var(--accent);
-      background: var(--accent-light);
-      border: 1px solid rgba(194,65,12,0.18);
-      padding: 5px 12px;
-      border-radius: 100px;
+    .topbar-right {
+      display: flex;
+      align-items: center;
+      gap: 12px;
     }
 
-    /* Hero */
+    /* Theme toggle — squared now */
+    .theme-toggle {
+      width: 34px;
+      height: 34px;
+      border-radius: 0;
+      border: 1px solid var(--rule-strong);
+      background: var(--paper);
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: background 0.15s, border-color 0.15s;
+      flex-shrink: 0;
+    }
+
+    .theme-toggle:hover {
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .theme-toggle:hover svg { color: var(--bg) !important; }
+    .theme-toggle svg { width: 15px; height: 15px; transition: color 0.15s; }
+
+    /* Live badge — sharp, no pill */
+    .live-badge {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: #166534;
+      background: #dcfce7;
+      border: 1px solid #86efac;
+      padding: 5px 10px;
+      border-radius: 0;
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .live-dot {
+      width: 6px;
+      height: 6px;
+      border-radius: 0;
+      background: #16a34a;
+      flex-shrink: 0;
+    }
+
+    html.dark .live-badge {
+      background: rgba(22,101,52,0.2);
+      color: #86efac;
+      border-color: rgba(134,239,172,0.3);
+    }
+
+    /* ─── HERO ─── */
     .hero {
-      margin-bottom: 72px;
+      margin-bottom: 0;
       animation: rise 0.5s 0.08s ease both;
     }
 
     .eyebrow {
       display: inline-flex;
       align-items: center;
-      gap: 8px;
-      font-size: 11px;
-      font-weight: 500;
-      letter-spacing: 0.18em;
+      gap: 10px;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--ink-light);
-      margin-bottom: 24px;
+      margin-bottom: 20px;
     }
 
     .eyebrow::before {
       content: '';
       display: block;
-      width: 20px;
+      width: 24px;
       height: 1.5px;
-      background: var(--ink-light);
+      background: var(--accent);
       flex-shrink: 0;
     }
 
     h1 {
       font-family: 'Instrument Serif', Georgia, serif;
-      font-size: clamp(48px, 8.5vw, 76px);
+      font-size: clamp(48px, 8.5vw, 78px);
       line-height: 1.02;
       letter-spacing: -0.025em;
       color: var(--ink);
-      margin-bottom: 28px;
+      margin-bottom: 24px;
     }
 
     h1 em { font-style: italic; color: var(--accent); }
 
-    .hero-divider {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      margin-bottom: 24px;
+    /* Hero thick rule (monochrome influence) */
+    .hero-rule {
+      height: 3px;
+      background: var(--ink);
+      margin-bottom: 22px;
+      width: 100%;
+      position: relative;
     }
 
-    .hero-divider-dot {
-      width: 5px;
-      height: 5px;
-      border-radius: 50%;
+    /* Small square at end of rule */
+    .hero-rule::after {
+      content: '';
+      position: absolute;
+      right: 0;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 9px;
+      height: 9px;
       background: var(--accent);
-      flex-shrink: 0;
     }
-
-    .hero-divider-line { height: 1px; background: var(--rule); flex: 1; }
 
     .hero-desc {
       font-size: 18px;
@@ -185,19 +243,14 @@
       max-width: 520px;
     }
 
-    /* Pain section */
-    .pain-section {
-      margin-bottom: 64px;
-      animation: rise 0.5s 0.14s ease both;
-    }
-
+    /* ─── SECTION LABELS ─── */
     .section-label {
-      font-size: 10px;
+      font-size: 11px;
       font-weight: 600;
-      letter-spacing: 0.18em;
+      letter-spacing: 0.2em;
       text-transform: uppercase;
       color: var(--ink-light);
-      margin-bottom: 20px;
+      margin-bottom: 24px;
       display: flex;
       align-items: center;
       gap: 12px;
@@ -211,117 +264,156 @@
       flex: 1;
     }
 
+    /* Section number prefix */
+    .section-num {
+      font-family: 'DM Sans', monospace;
+      font-size: 11px;
+      font-weight: 600;
+      color: var(--accent);
+      letter-spacing: 0.14em;
+      flex-shrink: 0;
+    }
+
+    /* ─── PAIN SECTION ─── */
+    .pain-section {
+      animation: rise 0.5s 0.14s ease both;
+    }
+
     .pain-grid {
       display: grid;
-      grid-template-columns: repeat(auto-fill, minmax(220px, 1fr));
-      gap: 10px;
+      grid-template-columns: repeat(auto-fill, minmax(210px, 1fr));
+      gap: 0;
+      border: 1px solid var(--rule-strong);
     }
 
     .pain-card {
       background: var(--paper);
-      border: 1px solid var(--rule);
-      border-radius: 8px;
-      padding: 20px 22px;
+      padding: 24px 22px;
+      border-right: 1px solid var(--rule-strong);
+      border-radius: 0;
+      transition: background 0.1s, color 0.1s;
+      cursor: default;
+      position: relative;
     }
 
+    .pain-card:last-child { border-right: none; }
+
+    /* Monochrome hover inversion */
+    .pain-card:hover {
+      background: var(--ink);
+      color: var(--bg);
+    }
+
+    .pain-card:hover .pain-title { color: var(--bg); }
+    .pain-card:hover .pain-desc  { color: rgba(245,240,232,0.7); }
+    .pain-card:hover .pain-icon  { filter: invert(1); }
+
     .pain-icon {
-      font-size: 20px;
-      margin-bottom: 10px;
+      font-size: 18px;
+      margin-bottom: 12px;
       display: block;
+      transition: filter 0.1s;
     }
 
     .pain-title {
       font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 17px;
+      font-size: 21px;
       color: var(--ink);
-      margin-bottom: 6px;
+      margin-bottom: 8px;
       line-height: 1.2;
+      transition: color 0.1s;
     }
 
     .pain-desc {
-      font-size: 13px;
+      font-size: 15px;
       font-weight: 300;
       color: var(--ink-mid);
-      line-height: 1.6;
+      line-height: 1.65;
+      transition: color 0.1s;
     }
 
-    /* Science section */
-    .science-section {
-      background: var(--ink);
-      border-radius: 10px;
-      padding: 36px 40px;
-      margin-bottom: 64px;
-      animation: rise 0.5s 0.20s ease both;
+    /* ─── SAMPLE (dark stats card) ─── */
+    .sample-section {
+      animation: rise 0.5s 0.22s ease both;
     }
 
-    .science-label {
+    .sample-card {
+      background: var(--sample-bg);
+      border-radius: 0;
+      padding: 28px 32px;
+      max-width: 360px;
+      border-left: 3px solid var(--accent);
+    }
+
+    .sample-eyebrow {
       font-size: 10px;
-      font-weight: 500;
+      font-weight: 600;
       letter-spacing: 0.18em;
       text-transform: uppercase;
-      color: rgba(255,255,255,0.4);
+      color: var(--sample-muted);
       margin-bottom: 16px;
     }
 
-    .science-title {
+    .sample-stat {
       font-family: 'Instrument Serif', Georgia, serif;
-      font-size: clamp(24px, 4vw, 34px);
-      color: var(--bg);
-      line-height: 1.15;
-      letter-spacing: -0.015em;
-      margin-bottom: 16px;
+      font-size: 72px;
+      line-height: 1;
+      color: var(--sample-text);
+      margin-bottom: 6px;
     }
 
-    .science-title em { font-style: italic; color: rgba(255,255,255,0.6); }
+    .sample-stat-label {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--sample-sub);
+      margin-bottom: 6px;
+    }
 
-    .science-rule {
-      height: 1px;
-      background: rgba(255,255,255,0.12);
+    .sample-est {
+      font-size: 13px;
+      color: var(--accent);
+      font-weight: 400;
       margin-bottom: 20px;
     }
 
-    .science-desc {
-      font-size: 15px;
-      font-weight: 300;
-      color: rgba(255,255,255,0.7);
-      line-height: 1.75;
-      max-width: 520px;
-      margin-bottom: 24px;
-    }
+    .sample-rule { height: 1px; background: var(--sample-rule); margin-bottom: 16px; }
 
-    .science-desc a {
-      color: rgba(255,255,255,0.9);
-      border-bottom: 1px solid rgba(255,255,255,0.25);
-      text-decoration: none;
-    }
-
-    .science-pills {
+    .sample-breakdown {
       display: flex;
+      gap: 20px;
+      margin-bottom: 20px;
       flex-wrap: wrap;
-      gap: 8px;
     }
 
-    .science-pill {
-      font-size: 11px;
-      font-weight: 400;
-      color: rgba(255,255,255,0.6);
-      background: rgba(255,255,255,0.08);
-      border: 1px solid rgba(255,255,255,0.12);
-      padding: 5px 13px;
-      border-radius: 100px;
+    .sample-mini { display: flex; flex-direction: column; gap: 2px; }
+    .sample-mini-val {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 24px;
+      color: var(--sample-text);
+    }
+    .sample-mini-label { font-size: 11px; color: var(--sample-muted); }
+
+    .sample-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
     }
 
-    /* Companion preview */
+    .sample-brand { font-family: 'Instrument Serif', Georgia, serif; font-size: 13px; font-style: italic; color: var(--sample-muted); }
+    .sample-brand span { color: var(--accent); font-style: normal; opacity: 0.8; }
+    .sample-note { font-size: 10px; color: var(--sample-muted); opacity: 0.6; }
+
+    /* ─── COMPANION CARD ─── */
     .companion-section {
-      margin-bottom: 64px;
       animation: rise 0.5s 0.26s ease both;
     }
 
     .companion-card {
       background: var(--paper);
-      border: 1px solid var(--rule);
-      border-radius: 10px;
+      border: 1px solid var(--rule-strong);
+      border-radius: 0;
       overflow: hidden;
+      border-top: 3px solid var(--ink);
     }
 
     .browser-bar {
@@ -344,16 +436,16 @@
       color: var(--ink-light);
       background: var(--rule);
       padding: 3px 12px;
-      border-radius: 100px;
+      border-radius: 0;
       flex: 1;
       max-width: 240px;
     }
 
-    .companion-inner { padding: 36px 40px 40px; }
+    .companion-inner { padding: 36px 36px 40px; }
 
     .companion-eyebrow {
       font-size: 10px;
-      font-weight: 500;
+      font-weight: 600;
       letter-spacing: 0.18em;
       text-transform: uppercase;
       color: var(--ink-light);
@@ -367,7 +459,7 @@
 
     .companion-title {
       font-family: 'Instrument Serif', Georgia, serif;
-      font-size: clamp(26px, 4vw, 38px);
+      font-size: clamp(30px, 4.5vw, 42px);
       line-height: 1.05;
       letter-spacing: -0.02em;
       color: var(--ink);
@@ -375,10 +467,16 @@
 
     .companion-title em { font-style: italic; color: var(--accent); }
 
-    .companion-rule { height: 1.5px; background: var(--ink); width: 100%; margin: 16px 0 18px; }
+    /* Monochrome-style thick rule */
+    .companion-rule {
+      height: 2px;
+      background: var(--ink);
+      width: 100%;
+      margin: 16px 0 18px;
+    }
 
     .companion-desc {
-      font-size: 15px;
+      font-size: 17px;
       line-height: 1.7;
       font-weight: 300;
       color: var(--ink-mid);
@@ -386,119 +484,78 @@
       max-width: 540px;
     }
 
-    .companion-desc a {
-      color: var(--accent);
-      text-decoration: none;
-      border-bottom: 1px solid rgba(194,65,12,0.3);
+    /* Tool mini-cards — no rounded corners */
+    .tools-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-bottom: 24px;
     }
 
-    .field { margin-bottom: 20px; }
+    .tool-card {
+      padding: 16px;
+      background: var(--bg);
+      border: 1px solid var(--rule-strong);
+      border-radius: 0;
+      transition: background 0.1s, color 0.1s, border-color 0.1s;
+    }
 
-    .field-label {
+    .tool-card:hover {
+      background: var(--ink);
+      border-color: var(--ink);
+    }
+
+    .tool-card:hover .tool-tag   { color: rgba(245,240,232,0.5); }
+    .tool-card:hover .tool-name  { color: var(--bg); }
+    .tool-card:hover .tool-desc  { color: rgba(245,240,232,0.6); }
+
+    .tool-tag {
       font-size: 10px;
       font-weight: 600;
-      letter-spacing: 0.16em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
-      color: var(--ink-light);
-      margin-bottom: 8px;
-      display: block;
+      color: var(--accent);
+      margin-bottom: 6px;
+      transition: color 0.1s;
     }
 
-    .field-label .opt { font-weight: 300; letter-spacing: 0; text-transform: none; font-size: 11px; opacity: 0.75; }
+    .tool-name {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 20px;
+      color: var(--ink);
+      margin-bottom: 6px;
+      transition: color 0.1s;
+    }
 
-    .mock-textarea {
-      width: 100%;
-      padding: 14px 16px;
-      border: 1.5px solid var(--rule);
-      border-radius: 8px;
-      background: var(--bg);
-      font-family: 'DM Sans', system-ui, sans-serif;
+    .tool-desc {
       font-size: 14px;
       font-weight: 300;
-      color: var(--ink-light);
-      font-style: italic;
-      line-height: 1.65;
-      resize: none;
-      min-height: 110px;
-      outline: none;
-      pointer-events: none;
+      color: var(--ink-mid);
+      line-height: 1.6;
+      transition: color 0.1s;
     }
 
-    .mock-select-wrap { position: relative; display: inline-block; width: 260px; }
-
-    .mock-select {
-      appearance: none;
-      -webkit-appearance: none;
-      width: 100%;
-      padding: 11px 40px 11px 14px;
-      border: 1.5px solid var(--rule);
-      border-radius: 8px;
-      background: var(--bg);
+    /* CTA button — squared, inversion on hover */
+    .companion-btn {
+      display: block;
+      background: var(--ink);
+      color: var(--bg);
+      text-align: center;
       font-family: 'DM Sans', system-ui, sans-serif;
-      font-size: 14px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 15px 24px;
+      border-radius: 0;
+      text-decoration: none;
+      border: 2px solid var(--ink);
+      transition: background 0.1s, color 0.1s;
+    }
+
+    .companion-btn:hover {
+      background: transparent;
       color: var(--ink);
-      outline: none;
-      pointer-events: none;
-      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'%3E%3Cpath d='M1 1l5 5 5-5' stroke='%23a8a29e' stroke-width='1.5' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E");
-      background-repeat: no-repeat;
-      background-position: right 14px center;
-    }
-
-    .analyze-btn {
-      display: inline-flex;
-      align-items: center;
-      gap: 10px;
-      background: var(--ink);
-      color: var(--bg);
-      font-family: 'DM Sans', system-ui, sans-serif;
-      font-size: 15px;
-      font-weight: 500;
-      padding: 13px 26px;
-      border-radius: 8px;
-      cursor: default;
-      margin-top: 6px;
-      pointer-events: none;
-    }
-
-    .output-section { margin-top: 28px; padding-top: 24px; border-top: 1px solid var(--rule); position: relative; }
-    .output-label { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-light); margin-bottom: 14px; }
-    .output-blur { filter: blur(5px); user-select: none; pointer-events: none; }
-
-    .verdict-chip {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      background: var(--accent-light);
-      border: 1px solid rgba(194,65,12,0.2);
-      color: var(--accent);
-      font-size: 12.5px;
-      font-weight: 500;
-      padding: 5px 13px;
-      border-radius: 100px;
-      margin-bottom: 14px;
-    }
-
-    .verdict-dot { width: 6px; height: 6px; border-radius: 50%; background: var(--accent); flex-shrink: 0; }
-    .out-line { height: 11px; background: var(--rule); border-radius: 3px; margin-bottom: 9px; }
-
-    .output-fade {
-      position: absolute;
-      inset: 0;
-      display: flex;
-      align-items: flex-end;
-      justify-content: center;
-      background: linear-gradient(to bottom, rgba(255,253,249,0) 0%, rgba(255,253,249,0.92) 65%);
-      padding-bottom: 20px;
-    }
-
-    .output-pill {
-      background: var(--ink);
-      color: var(--bg);
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 14px;
-      font-style: italic;
-      padding: 9px 22px;
-      border-radius: 100px;
     }
 
     .companion-footer {
@@ -516,336 +573,410 @@
     .cf-brand span { color: var(--accent); font-style: normal; }
     .cf-meta { font-size: 11px; color: var(--ink-light); font-weight: 300; }
 
-    /* Tabs */
-    .tab-bar {
-      display: flex;
-      align-items: center;
-      gap: 0;
-      border-bottom: 1.5px solid var(--rule);
-      margin-bottom: 24px;
-    }
-
-    .tab {
-      font-size: 14px;
-      font-weight: 400;
-      color: var(--ink-light);
-      padding: 10px 18px 10px 0;
-      margin-right: 24px;
-      cursor: default;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1.5px;
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      white-space: nowrap;
-    }
-
-    .tab.active {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-      font-weight: 500;
-    }
-
-    .tab.muted { opacity: 0.6; }
-
-    .soon-badge {
-      font-size: 10px;
-      font-weight: 500;
-      color: var(--ink-light);
-      background: var(--rule);
-      padding: 2px 8px;
-      border-radius: 100px;
-    }
-
-    /* Waitlist */
-    .waitlist-section {
-      background: var(--paper);
-      border: 1px solid var(--rule);
-      border-radius: 10px;
-      padding: 32px 36px;
-      animation: rise 0.5s 0.32s ease both;
-      margin-bottom: 48px;
-    }
-
-    .waitlist-title {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 24px;
-      margin-bottom: 8px;
-      color: var(--ink);
-    }
-
-    .waitlist-desc {
-      font-size: 15px;
-      font-weight: 300;
-      color: var(--ink-mid);
-      margin-bottom: 22px;
-      line-height: 1.65;
-      max-width: 480px;
-    }
-
-    .waitlist-row {
-      display: flex;
-      gap: 10px;
-      flex-wrap: wrap;
-    }
-
-    .waitlist-input {
-      flex: 1;
-      min-width: 200px;
-      padding: 12px 16px;
-      border: 1.5px solid var(--rule);
-      border-radius: 6px;
-      background: var(--bg);
-      font-family: 'DM Sans', system-ui, sans-serif;
-      font-size: 14px;
-      font-weight: 300;
-      color: var(--ink);
-      outline: none;
-      transition: border-color 0.2s;
-    }
-
-    .waitlist-input:focus { border-color: var(--ink-mid); }
-    .waitlist-input::placeholder { color: var(--ink-light); }
-
-    .waitlist-btn {
-      background: var(--accent);
-      color: #fff;
-      font-family: 'DM Sans', system-ui, sans-serif;
-      font-size: 14px;
-      font-weight: 500;
-      padding: 12px 26px;
-      border: none;
-      border-radius: 6px;
-      cursor: pointer;
-      transition: background 0.18s, transform 0.14s;
-      white-space: nowrap;
-    }
-
-    .waitlist-btn:hover { background: #a83209; transform: translateY(-1px); }
-    .waitlist-note { font-size: 11.5px; color: var(--ink-light); margin-top: 12px; font-weight: 300; }
-
-    /* Survey */
+    /* ─── SURVEY / NEWSLETTER ─── */
     .survey-section {
       background: var(--paper);
-      border: 1px solid var(--rule);
-      border-radius: 10px;
+      border: 1px solid var(--rule-strong);
+      border-radius: 0;
       padding: 28px 32px;
-      margin-bottom: 16px;
       animation: rise 0.5s 0.36s ease both;
       display: flex;
       align-items: flex-start;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 24px;
+      border-left: 3px solid var(--ink);
     }
 
-    .survey-left { display: flex; flex-direction: column; gap: 10px; max-width: 480px; }
-    .survey-label { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-light); }
-    .survey-title { font-family: 'Instrument Serif', Georgia, serif; font-size: 21px; color: var(--ink); }
+    .survey-left { display: flex; flex-direction: column; gap: 10px; max-width: 460px; }
+    .survey-label {
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--ink-light);
+    }
+    .survey-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: 21px;
+      color: var(--ink);
+      line-height: 1.2;
+    }
     .survey-desc { font-size: 14px; font-weight: 300; color: var(--ink-mid); line-height: 1.65; }
 
     .survey-questions {
       display: flex;
       flex-direction: column;
       gap: 6px;
-      padding-left: 12px;
-      border-left: 2px solid var(--rule);
+      padding-left: 0;
+      border-left: none;
       margin-top: 4px;
     }
 
-    .sq { font-size: 12.5px; font-weight: 300; color: var(--ink-light); line-height: 1.5; font-style: italic; }
+    .sq {
+      font-size: 12.5px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.5;
+      display: flex;
+      align-items: flex-start;
+      gap: 8px;
+    }
+
+    .sq::before {
+      content: '—';
+      color: var(--accent);
+      font-weight: 400;
+      flex-shrink: 0;
+    }
 
     .survey-btn {
       display: inline-block;
-      background: var(--bg);
-      color: var(--ink);
-      border: 1.5px solid var(--ink);
+      background: var(--ink);
+      color: var(--bg);
+      border: 2px solid var(--ink);
       font-family: 'DM Sans', system-ui, sans-serif;
-      font-size: 13px;
-      font-weight: 500;
-      padding: 11px 22px;
-      border-radius: 6px;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 13px 22px;
+      border-radius: 0;
       text-decoration: none;
       white-space: nowrap;
-      transition: background 0.18s, transform 0.14s;
       flex-shrink: 0;
       align-self: flex-start;
+      transition: background 0.1s, color 0.1s;
     }
 
-    .survey-btn:hover { background: var(--rule); transform: translateY(-1px); }
-
-    /* Sample card */
-    .sample-section {
-      margin-bottom: 52px;
-      animation: rise 0.5s 0.22s ease both;
+    .survey-btn:hover {
+      background: transparent;
+      color: var(--ink);
     }
 
-    .sample-card {
-      background: var(--sample-bg);
-      border-radius: 10px;
-      padding: 28px 32px;
-      max-width: 340px;
-      transition: background 0.3s;
-    }
-
-    .sample-eyebrow {
-      font-size: 10px;
-      font-weight: 500;
-      letter-spacing: 0.16em;
-      text-transform: uppercase;
-      color: var(--sample-muted);
-      margin-bottom: 16px;
-    }
-
-    .sample-stat {
-      font-family: 'Instrument Serif', Georgia, serif;
-      font-size: 56px;
-      line-height: 1;
-      color: var(--sample-text);
-      margin-bottom: 4px;
-    }
-
-    .sample-stat-label {
-      font-size: 14px;
-      font-weight: 300;
-      color: var(--sample-sub);
-      margin-bottom: 6px;
-    }
-
-    .sample-est {
-      font-size: 12px;
-      color: var(--accent);
-      font-weight: 400;
-      margin-bottom: 18px;
-    }
-
-    .sample-rule { height: 1px; background: var(--sample-rule); margin-bottom: 16px; }
-
-    .sample-breakdown {
-      display: flex;
-      gap: 20px;
-      margin-bottom: 20px;
-      flex-wrap: wrap;
-    }
-
-    .sample-mini { display: flex; flex-direction: column; gap: 2px; }
-    .sample-mini-val { font-family: 'Instrument Serif', Georgia, serif; font-size: 18px; color: var(--sample-text); }
-    .sample-mini-label { font-size: 10px; color: var(--sample-muted); }
-
-    .sample-footer {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-    }
-
-    .sample-brand { font-family: 'Instrument Serif', Georgia, serif; font-size: 13px; font-style: italic; color: var(--sample-muted); }
-    .sample-brand em { font-style: italic; }
-    .sample-brand span { color: var(--accent); font-style: normal; opacity: 0.8; }
-    .sample-note { font-size: 10px; color: var(--sample-muted); opacity: 0.6; }
-
-    /* Misguided strip */
+    /* ─── MISGUIDED STRIP ─── */
     .misguided-strip {
       background: var(--paper);
-      border: 1px solid var(--rule);
-      border-radius: 10px;
-      padding: 20px 28px;
+      border: 1px solid var(--rule-strong);
+      border-radius: 0;
+      padding: 20px 24px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 12px;
-      margin-bottom: 48px;
       animation: rise 0.5s 0.38s ease both;
     }
 
     .strip-left { display: flex; flex-direction: column; gap: 4px; }
-    .strip-label { font-size: 10px; font-weight: 600; letter-spacing: 0.16em; text-transform: uppercase; color: var(--ink-light); }
+    .strip-label { font-size: 10px; font-weight: 600; letter-spacing: 0.18em; text-transform: uppercase; color: var(--ink-light); }
     .strip-text { font-size: 14px; font-weight: 300; color: var(--ink-mid); line-height: 1.5; }
     .strip-text em { font-family: 'Instrument Serif', Georgia, serif; font-style: italic; color: var(--ink); }
 
     .strip-link {
-      font-size: 13px;
-      font-weight: 500;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
       color: var(--ink);
       text-decoration: none;
-      border-bottom: 1px solid var(--rule);
+      border-bottom: 2px solid var(--ink);
+      padding-bottom: 2px;
       white-space: nowrap;
-      transition: border-color 0.2s;
+      transition: color 0.15s, border-color 0.15s;
     }
 
-    .strip-link:hover { border-color: var(--ink); }
+    .strip-link:hover { color: var(--accent); border-color: var(--accent); }
 
-    /* Footer */
+    /* ─── FOOTER ─── */
     .site-footer {
       max-width: 760px;
       margin: 0 auto;
-      padding: 20px 28px 40px;
+      padding: 24px 28px 44px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       flex-wrap: wrap;
       gap: 12px;
-      border-top: 1px solid var(--rule);
+      border-top: 2px solid var(--ink);
       position: relative;
       z-index: 1;
     }
 
-    .footer-credit { font-size: 12px; color: var(--ink-light); line-height: 1.7; }
-    .footer-credit a { color: var(--ink-mid); text-decoration: none; border-bottom: 1px solid var(--rule); }
-    .footer-credit a:hover { color: var(--ink); }
-    .footer-links { display: flex; gap: 16px; flex-wrap: wrap; }
-    .footer-link { font-size: 12px; font-weight: 500; color: var(--ink-mid); text-decoration: none; border-bottom: 1px solid var(--rule); }
-    .footer-link:hover { color: var(--ink); border-color: var(--ink); }
+    .footer-credit { font-size: 12px; color: var(--ink-mid); line-height: 1.7; }
+    .footer-credit a { color: var(--ink); text-decoration: none; border-bottom: 1px solid var(--rule-strong); transition: border-color 0.15s; }
+    .footer-credit a:hover { border-color: var(--accent); color: var(--accent); }
+    .footer-links { display: flex; gap: 12px; flex-wrap: wrap; }
+    .footer-link {
+      font-size: 12px;
+      font-weight: 500;
+      color: var(--ink-mid);
+      text-decoration: none;
+      border-bottom: 1px solid var(--rule-strong);
+      padding-bottom: 1px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .footer-link:hover { color: var(--accent); border-color: var(--accent); }
 
+    /* ─── COMPANION MOCKUP ─── */
+    .mockup-wrap {
+      background: var(--bg);
+      border: 1px solid var(--rule-strong);
+      border-radius: 0;
+      padding: 28px 28px 24px;
+      margin-bottom: 20px;
+      margin-top: 4px;
+    }
+
+    .mockup-desc {
+      font-size: 16px;
+      font-weight: 300;
+      color: var(--ink);
+      line-height: 1.7;
+      margin-bottom: 18px;
+    }
+
+    .mockup-features {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      margin-bottom: 22px;
+    }
+
+    .mockup-feature {
+      display: flex;
+      align-items: flex-start;
+      gap: 10px;
+      font-size: 14px;
+      color: var(--ink-mid);
+      line-height: 1.55;
+    }
+
+    .mockup-feature strong { color: var(--ink); font-weight: 600; }
+
+    .mockup-feat-icon { font-size: 16px; flex-shrink: 0; margin-top: 1px; }
+
+    .mockup-textarea-wrap {
+      border: 1px solid var(--rule-strong);
+      border-radius: 0;
+      overflow: hidden;
+      margin-bottom: 10px;
+      background: var(--paper);
+    }
+
+    .mockup-textarea {
+      width: 100%;
+      height: 140px;
+      padding: 16px;
+      border: none;
+      background: var(--paper);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--ink-light);
+      font-style: italic;
+      resize: none;
+      outline: none;
+      pointer-events: none;
+    }
+
+    .mockup-checkbox-row {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--paper);
+      border: 1px solid var(--rule-strong);
+      padding: 13px 16px;
+      margin-bottom: 10px;
+    }
+
+    .mockup-checkbox {
+      width: 18px;
+      height: 18px;
+      border: 1.5px solid var(--rule-strong);
+      border-radius: 2px;
+      flex-shrink: 0;
+      background: var(--paper);
+    }
+
+    .mockup-checkbox-label {
+      font-size: 14px;
+      font-weight: 500;
+      color: var(--ink);
+      line-height: 1.4;
+    }
+
+    .mockup-context {
+      width: 100%;
+      border: none;
+      border-bottom: 1px solid var(--rule-strong);
+      background: var(--paper);
+      padding: 13px 16px;
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 14px;
+      font-weight: 300;
+      color: var(--ink-light);
+      font-style: italic;
+      outline: none;
+      border-radius: 0;
+      margin-bottom: 6px;
+      pointer-events: none;
+    }
+
+    .mockup-context-note {
+      font-size: 12px;
+      font-weight: 300;
+      color: var(--ink-light);
+      margin-bottom: 18px;
+    }
+
+    .mockup-analyze-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      background: var(--ink);
+      color: var(--bg);
+      font-family: 'DM Sans', system-ui, sans-serif;
+      font-size: 15px;
+      font-weight: 700;
+      padding: 14px 26px;
+      border-radius: 0;
+      cursor: default;
+      pointer-events: none;
+      letter-spacing: 0.01em;
+    }
+
+    /* ─── COMING SOON ─── */
+    .coming-section {
+      animation: rise 0.5s 0.3s ease both;
+    }
+
+    .coming-card {
+      background: var(--paper);
+      border: 1px solid var(--rule-strong);
+      border-left: 3px solid var(--rule-strong);
+      padding: 28px 28px 24px;
+      position: relative;
+      overflow: hidden;
+    }
+
+    /* Diagonal stripe watermark */
+    .coming-card::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: repeating-linear-gradient(
+        45deg,
+        transparent,
+        transparent 18px,
+        rgba(28,25,23,0.025) 18px,
+        rgba(28,25,23,0.025) 19px
+      );
+      pointer-events: none;
+    }
+
+    .coming-badge-pill {
+      display: inline-flex;
+      align-items: center;
+      font-size: 10px;
+      font-weight: 600;
+      letter-spacing: 0.16em;
+      text-transform: uppercase;
+      color: var(--ink-mid);
+      background: var(--rule);
+      border: 1px solid var(--rule-strong);
+      padding: 4px 10px;
+      border-radius: 0;
+      margin-bottom: 14px;
+    }
+
+    .coming-title {
+      font-family: 'Instrument Serif', Georgia, serif;
+      font-size: clamp(26px, 4vw, 36px);
+      font-style: normal;
+      letter-spacing: -0.02em;
+      line-height: 1.1;
+      color: var(--ink);
+      margin-bottom: 0;
+    }
+
+    .coming-title em { font-style: italic; color: var(--accent); }
+
+    .coming-rule {
+      height: 1px;
+      background: var(--rule-strong);
+      margin: 14px 0 16px;
+    }
+
+    .coming-desc {
+      font-size: 15px;
+      font-weight: 300;
+      color: var(--ink-mid);
+      line-height: 1.7;
+      max-width: 500px;
+      margin-bottom: 20px;
+    }
+
+    .coming-footer {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      flex-wrap: wrap;
+    }
+
+    .coming-note {
+      font-size: 13px;
+      font-weight: 300;
+      color: var(--ink-light);
+    }
+
+    .coming-link {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--accent);
+      text-decoration: none;
+      border-bottom: 1.5px solid var(--accent);
+      padding-bottom: 1px;
+      transition: opacity 0.15s;
+      letter-spacing: 0.02em;
+    }
+
+    .coming-link:hover { opacity: 0.75; }
+
+    /* ─── ANIMATIONS ─── */
     @keyframes rise {
       from { opacity: 0; transform: translateY(14px); }
       to   { opacity: 1; transform: translateY(0); }
     }
 
+    /* ─── RESPONSIVE ─── */
     @media (max-width: 600px) {
-      .wrap { padding: 40px 18px 40px; }
-      .topbar { margin-bottom: 44px; }
-      .logo { font-size: 18px; }
-      .coming-badge { font-size: 9px; padding: 4px 10px; }
-
+      .wrap { padding: 36px 18px 40px; }
+      .topbar { margin-bottom: 44px; padding-bottom: 20px; }
       h1 { font-size: clamp(38px, 11vw, 56px); }
 
-      .hero { margin-bottom: 44px; }
-      .hero-desc { font-size: 15px; }
-
       .pain-grid { grid-template-columns: 1fr; }
-      .pain-card { padding: 16px 18px; }
+      .pain-card { border-right: none; border-bottom: 1px solid var(--rule-strong); }
+      .pain-card:last-child { border-bottom: none; }
 
       .sample-card { max-width: 100%; padding: 22px 20px; }
       .sample-stat { font-size: 44px; }
-      .sample-breakdown { gap: 14px; }
 
-      .companion-inner { padding: 20px 18px 24px; }
-      .companion-title { font-size: clamp(22px, 6vw, 32px); }
-      .tab-bar { overflow-x: auto; -webkit-overflow-scrolling: touch; gap: 0; padding-bottom: 1px; }
-      .tab { white-space: nowrap; font-size: 12px; padding: 8px 0; margin-right: 18px; }
-      .mock-select-wrap { width: 100%; }
-      .analyze-btn { width: 100%; justify-content: center; }
+      .companion-inner { padding: 22px 20px 26px; }
+      .companion-title { font-size: clamp(22px, 6vw, 30px); }
+      .tools-grid { grid-template-columns: 1fr; }
 
-      .survey-section { flex-direction: column; padding: 22px 18px; }
+      .survey-section { flex-direction: column; padding: 24px 20px; }
       .survey-btn { width: 100%; text-align: center; }
-      .survey-left { max-width: 100%; }
 
-      .misguided-strip { flex-direction: column; align-items: flex-start; padding: 18px 20px; }
+      .misguided-strip { flex-direction: column; align-items: flex-start; }
 
       .site-footer { flex-direction: column; align-items: flex-start; padding: 20px 18px 36px; }
-      .footer-links { gap: 12px; }
-
-      .section-label { font-size: 9px; }
-
-      .browser-url { max-width: 160px; font-size: 10px; }
     }
 
     @media (max-width: 400px) {
-      .wrap { padding: 32px 14px 32px; }
+      .wrap { padding: 28px 14px 32px; }
       h1 { font-size: 36px; }
-      .sample-breakdown { flex-wrap: wrap; gap: 12px; }
-      .tab { font-size: 11px; margin-right: 14px; }
     }
   </style>
 </head>
@@ -853,38 +984,43 @@
 
 <div class="wrap">
 
-  <!-- Top bar -->
+  <!-- ── TOPBAR ── -->
   <div class="topbar">
     <div class="logo"><em>Ignore</em><span>More</span>.com</div>
-    <div style="display:flex;align-items:center;gap:10px;">
+    <div class="topbar-right">
       <button class="theme-toggle" id="theme-toggle" aria-label="Toggle dark mode">
-        <svg id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-mid);">
+        <svg id="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-mid)">
           <circle cx="12" cy="12" r="4"/><line x1="12" y1="2" x2="12" y2="4"/><line x1="12" y1="20" x2="12" y2="22"/><line x1="4.22" y1="4.22" x2="5.64" y2="5.64"/><line x1="18.36" y1="18.36" x2="19.78" y2="19.78"/><line x1="2" y1="12" x2="4" y2="12"/><line x1="20" y1="12" x2="22" y2="12"/><line x1="4.22" y1="19.78" x2="5.64" y2="18.36"/><line x1="18.36" y1="5.64" x2="19.78" y2="4.22"/>
         </svg>
-        <svg id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-mid);display:none;">
+        <svg id="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-mid);display:none">
           <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/>
         </svg>
       </button>
-      <div class="coming-badge" style="background:#dcfce7;color:#15803d;border:1px solid #bbf7d0;">● Now Live</div>
+      <div class="live-badge">
+        <div class="live-dot"></div>
+        Now Live
+      </div>
     </div>
   </div>
 
-  <!-- Hero -->
+  <!-- ── HERO ── -->
   <div class="hero">
     <div class="eyebrow">A suite of critical ignoring tools</div>
     <h1>Less noise.<br/><em>More time.</em></h1>
-    <div class="hero-divider">
-      <div class="hero-divider-dot"></div>
-      <div class="hero-divider-line"></div>
-    </div>
+    <div class="hero-rule"></div>
     <p class="hero-desc">
       Research suggests most of us spend far more time online than we actually want to. These free tools are built to help close that gap by deciding what deserves your attention and what doesn't.
     </p>
   </div>
 
-  <!-- Pain section -->
+  <div class="section-divider"></div>
+
+  <!-- ── THE PROBLEM ── -->
   <div class="pain-section">
-    <div class="section-label">The problem</div>
+    <div class="section-label">
+      <span class="section-num">01</span>
+      The problem
+    </div>
     <div class="pain-grid">
       <div class="pain-card">
         <span class="pain-icon">🧠</span>
@@ -893,7 +1029,7 @@
       </div>
       <div class="pain-card">
         <span class="pain-icon">
-          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-mid);">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="color:var(--ink-mid)">
             <line x1="4" y1="6" x2="20" y2="6"/><line x1="4" y1="12" x2="20" y2="12"/><line x1="4" y1="18" x2="20" y2="18"/>
             <circle cx="8" cy="6" r="2" fill="var(--paper)"/><circle cx="16" cy="12" r="2" fill="var(--paper)"/><circle cx="10" cy="18" r="2" fill="var(--paper)"/>
           </svg>
@@ -909,9 +1045,14 @@
     </div>
   </div>
 
-  <!-- Sample card -->
+  <div class="section-divider"></div>
+
+  <!-- ── WHAT YOU'LL GET ── -->
   <div class="sample-section">
-    <div class="section-label">What you'll get</div>
+    <div class="section-label">
+      <span class="section-num">02</span>
+      What you'll get
+    </div>
     <div class="sample-card">
       <div class="sample-eyebrow">Your session on IgnoreMore</div>
       <div class="sample-stat">3.2</div>
@@ -928,16 +1069,23 @@
         <div class="sample-note">example summary</div>
       </div>
     </div>
-    <p style="font-size:11.5px;font-weight:300;color:var(--ink-light);margin-top:10px;max-width:340px;line-height:1.6;">Hours estimates are based on published research on rumination and online attention. <a href="https://matthewfacciani.substack.com/p/i-study-how-we-get-misled-online" target="_blank" style="color:var(--ink-light);border-bottom:1px solid var(--rule);text-decoration:none;">Read the research →</a></p>
+    <p style="font-size:11.5px;font-weight:300;color:var(--ink-light);margin-top:12px;max-width:360px;line-height:1.6;">Hours estimates are based on published research on rumination and online attention. <a href="https://matthewfacciani.substack.com/p/i-study-how-we-get-misled-online" target="_blank" style="color:var(--ink-light);border-bottom:1px solid var(--rule);text-decoration:none;transition:border-color 0.15s;">Read the research →</a></p>
   </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── COMPANION ── -->
   <div class="companion-section">
-    <div class="section-label">Now Live — Critical Ignoring Companion</div>
+    <div class="section-label">
+      <span class="section-num">03</span>
+      Now Live — Critical Ignoring Companion
+    </div>
     <div class="companion-card">
       <div class="browser-bar">
         <div class="dot dot-r"></div>
         <div class="dot dot-y"></div>
         <div class="dot dot-g"></div>
-        <div class="browser-url">ignoremore.com/companion</div>
+        <div class="browser-url">critignore.com</div>
       </div>
       <div class="companion-inner">
         <div class="companion-eyebrow">
@@ -947,20 +1095,50 @@
         <div class="companion-rule"></div>
         <p class="companion-desc">A suite of tools to help you decide what deserves your attention online, and what doesn't. Both tools are grounded in the same skill: knowing what to ignore.</p>
 
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:20px;">
-          <div style="padding:16px;background:var(--bg);border:1px solid var(--rule);border-radius:8px;">
-            <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">Tab 1</div>
-            <div style="font-family:'Instrument Serif',Georgia,serif;font-size:18px;color:var(--ink);margin-bottom:6px;">Comment Analyzer</div>
-            <div style="font-size:13px;font-weight:300;color:var(--ink-mid);line-height:1.6;">Decide whether an online comment deserves a reply or is just an attention trap.</div>
+        <div class="tools-grid">
+          <div class="tool-card">
+            <div class="tool-tag">Module 01</div>
+            <div class="tool-name">Comment Analyzer</div>
+            <div class="tool-desc">Decide whether an online comment deserves a reply or is just an attention trap.</div>
           </div>
-          <div style="padding:16px;background:var(--bg);border:1px solid var(--rule);border-radius:8px;">
-            <div style="font-size:11px;font-weight:600;letter-spacing:0.1em;text-transform:uppercase;color:var(--accent);margin-bottom:6px;">Tab 2</div>
-            <div style="font-family:'Instrument Serif',Georgia,serif;font-size:18px;color:var(--ink);margin-bottom:6px;">Credibility Check</div>
-            <div style="font-size:13px;font-weight:300;color:var(--ink-mid);line-height:1.6;">Avoid rabbit holes by checking whether a source or claim is worth your time before engaging.</div>
+          <div class="tool-card">
+            <div class="tool-tag">Module 02</div>
+            <div class="tool-name">Credibility Check</div>
+            <div class="tool-desc">Avoid rabbit holes by checking whether a source or claim is worth your time before engaging.</div>
           </div>
         </div>
 
-        <a href="https://critignore.com" target="_blank" style="display:block;background:var(--ink);color:var(--bg);text-align:center;font-family:'DM Sans',system-ui,sans-serif;font-size:14px;font-weight:500;padding:14px 24px;border-radius:8px;text-decoration:none;margin-top:20px;transition:background 0.2s;">
+        <!-- ── COMPANION MOCKUP (mirrors the actual UI) ── -->
+        <div class="mockup-wrap">
+          <div class="mockup-desc">
+            Paste anything you encountered online and see if it's worth your time. The tool figures out what you're looking at and responds accordingly: whether it's a comment that's an attention trap, a claim worth fact-checking, or something in between.
+          </div>
+          <div class="mockup-features">
+            <div class="mockup-feature">
+              <span class="mockup-feat-icon">💬</span>
+              <span><strong>Comment Analyzer</strong> helps you decide whether an online comment deserves a reply or is just an attention trap.</span>
+            </div>
+            <div class="mockup-feature">
+              <span class="mockup-feat-icon">🔍</span>
+              <span><strong>Credibility Check</strong> helps you avoid falling down rabbit holes by quickly checking whether a source or claim is worth your time before you engage with it.</span>
+            </div>
+          </div>
+          <div class="mockup-textarea-wrap">
+            <textarea class="mockup-textarea" placeholder="Paste a comment, claim, headline, or source" disabled></textarea>
+          </div>
+          <div class="mockup-checkbox-row">
+            <div class="mockup-checkbox"></div>
+            <span class="mockup-feat-icon" style="font-size:15px;">🔍</span>
+            <span class="mockup-checkbox-label">Check this box to get a step-by-step fact-checking plan for any claim or headline.</span>
+          </div>
+          <input class="mockup-context" type="text" placeholder="Any context? e.g. saw this on Facebook, anonymous account, forwarded by a friend" disabled/>
+          <div class="mockup-context-note">Optional. Helps the tool calibrate its analysis.</div>
+          <div class="mockup-analyze-btn">
+            <span>⚡</span> Analyze This
+          </div>
+        </div>
+
+        <a href="https://critignore.com" target="_blank" class="companion-btn">
           Try the Companion →
         </a>
 
@@ -972,22 +1150,46 @@
     </div>
   </div>
 
-  <!-- Survey -->
+  <div class="section-divider"></div>
+
+  <!-- ── COMING SOON: SCREEN TIME SAVER ── -->
+  <div class="coming-section">
+    <div class="section-label">
+      <span class="section-num">04</span>
+      Coming Soon
+    </div>
+    <div class="coming-card">
+      <div class="coming-badge-pill">In Development</div>
+      <div class="coming-title">Screen Time <em>Saver</em></div>
+      <div class="coming-rule"></div>
+      <p class="coming-desc">A tool to help you audit how much time you're actually spending online — and what you're spending it on. Built on the same research as the companion: less scrolling, more intention.</p>
+      <div class="coming-footer">
+        <span class="coming-note">Want early access?</span>
+        <a href="https://matthewfacciani.substack.com" target="_blank" class="coming-link">Subscribe to Misguided →</a>
+      </div>
+    </div>
+  </div>
+
+  <div class="section-divider"></div>
+
+  <!-- ── NEWSLETTER ── -->
   <div class="survey-section">
     <div class="survey-left">
       <div class="survey-label">Stay in the loop</div>
       <div class="survey-title">New tools, research, and ideas in your inbox</div>
       <div class="survey-desc">Subscribe to the Misguided newsletter for updates on new tools, research-backed insights on misinformation, and ideas for protecting your attention online. Free, no spam.</div>
       <div class="survey-questions">
-        <div class="sq">📬 Weekly essays on misinformation and digital literacy</div>
-        <div class="sq">🛠 First access to new tools as they launch</div>
-        <div class="sq">🧠 Research-backed strategies you can actually use</div>
+        <div class="sq">Weekly essays on misinformation and digital literacy</div>
+        <div class="sq">First access to new tools as they launch</div>
+        <div class="sq">Research-backed strategies you can actually use</div>
       </div>
     </div>
     <a class="survey-btn" href="https://matthewfacciani.substack.com" target="_blank">Subscribe to Misguided →</a>
   </div>
 
-  <!-- Misguided strip -->
+  <div style="height:20px;"></div>
+
+  <!-- ── MISGUIDED STRIP ── -->
   <div class="misguided-strip">
     <div class="strip-left">
       <div class="strip-label">Part of the Misguided universe</div>
@@ -996,29 +1198,30 @@
     <a class="strip-link" href="https://matthewfacciani.github.io/tools/" target="_blank">Explore all tools →</a>
   </div>
 
-</div>
+</div><!-- /wrap -->
 
+<!-- ── FOOTER ── -->
 <div class="site-footer">
   <div class="footer-credit">
     Created by <a href="https://www.matthewfacciani.com" target="_blank">Matthew Facciani, PhD</a><br>
     Grounded in <a href="https://matthewfacciani.substack.com/p/the-overlooked-skill-we-all-need" target="_blank">critical ignoring</a> research
   </div>
   <div class="footer-links">
-    <a class="footer-link" href="https://matthewfacciani.substack.com" target="_blank">📬 Misguided Newsletter</a>
-    <a class="footer-link" href="https://cup.columbia.edu/book/misguided/9780231205054" target="_blank">📖 Misguided (the book)</a>
+    <a class="footer-link" href="https://matthewfacciani.substack.com" target="_blank">Misguided Newsletter</a>
+    <a class="footer-link" href="https://cup.columbia.edu/book/misguided/9780231205054" target="_blank">Misguided (the book)</a>
   </div>
 </div>
 
 <script>
   var toggle = document.getElementById('theme-toggle');
-  var sun = document.getElementById('icon-sun');
-  var moon = document.getElementById('icon-moon');
-  var dark = false;
+  var sun    = document.getElementById('icon-sun');
+  var moon   = document.getElementById('icon-moon');
+  var dark   = false;
 
   toggle.addEventListener('click', function() {
     dark = !dark;
     document.documentElement.classList.toggle('dark', dark);
-    sun.style.display = dark ? 'none' : 'block';
+    sun.style.display  = dark ? 'none'  : 'block';
     moon.style.display = dark ? 'block' : 'none';
   });
 </script>
